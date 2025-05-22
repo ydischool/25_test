@@ -1,72 +1,59 @@
 import streamlit as st
 from PIL import Image
 
-st.set_page_config(
-    page_title="🌟 MBTI 직업 추천기",
-    page_icon="🧭",
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
+st.set_page_config(page_title="나의 소개", page_icon="👤", layout="centered")
 
 st.markdown(
     """
-    <div style="text-align: center;">
-        <h1 style="color: #f72585;">🌈 MBTI 기반 직업 추천기 💼</h1>
-        <h3 style="color: #7209b7;">당신의 성격에 딱 맞는 직업은? 지금 바로 확인해보세요! 🎯</h3>
-    </div>
+    <style>
+    .title {
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    .subtitle {
+        font-size: 18px;
+        text-align: center;
+        color: #7f8c8d;
+        margin-bottom: 40px;
+    }
+    .section {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+    }
+    </style>
     """,
     unsafe_allow_html=True
 )
 
-st.markdown("---")
+st.markdown('<div class="title">👤 나의 소개 페이지</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">자기소개를 입력해 보세요</div>', unsafe_allow_html=True)
 
-# 👉 MBTI 목록
-mbti_list = [
-    "ISTJ", "ISFJ", "INFJ", "INTJ",
-    "ISTP", "ISFP", "INFP", "INTP",
-    "ESTP", "ESFP", "ENFP", "ENTP",
-    "ESTJ", "ESFJ", "ENFJ", "ENTJ"
-]
+with st.container():
+    st.markdown('<div class="section">', unsafe_allow_html=True)
 
-# 🎯 추천 직업 매핑
-mbti_jobs = {
-    "ISTJ": ["🕵️‍♂️ 회계사", "👨‍⚖️ 공무원", "🏦 금융 분석가"],
-    "ISFJ": ["🧑‍🏫 교사", "👩‍⚕️ 간호사", "🏠 사회복지사"],
-    "INFJ": ["🎨 예술가", "🧠 심리상담사", "✍️ 작가"],
-    "INTJ": ["🧪 과학자", "🧠 전략가", "💻 데이터 분석가"],
-    "ISTP": ["🔧 기술자", "🚓 경찰", "🚗 자동차 정비사"],
-    "ISFP": ["🎵 음악가", "📸 사진작가", "🌿 플로리스트"],
-    "INFP": ["📚 소설가", "🎭 배우", "🧘‍♀️ 명상 지도자"],
-    "INTP": ["👨‍💻 개발자", "🔬 연구원", "♟ 철학자"],
-    "ESTP": ["🕺 이벤트 플래너", "📢 마케터", "💼 세일즈맨"],
-    "ESFP": ["🎤 가수", "🎬 배우", "👠 패션 디자이너"],
-    "ENFP": ["🎯 창업가", "🧗 활동가", "🎨 콘텐츠 크리에이터"],
-    "ENTP": ["💡 발명가", "📺 방송인", "🧠 기획자"],
-    "ESTJ": ["🏢 관리자", "👮‍♂️ 군인", "⚖️ 법률가"],
-    "ESFJ": ["🧑‍🏫 교사", "👨‍🍳 셰프", "💁‍♀️ 고객 서비스 담당자"],
-    "ENFJ": ["🌍 NGO 활동가", "🎤 연설가", "🎓 교육자"],
-    "ENTJ": ["📈 CEO", "⚙️ 엔지니어", "💡 기획 관리자"]
-}
+    name = st.text_input("이름")
+    school = st.text_input("학교")
+    hobby = st.text_input("취미")
+    email = st.text_input("이메일")
+    photo = st.file_uploader("사진 업로드", type=["jpg", "jpeg", "png"])
 
-# 👉 사용자 입력
-selected_mbti = st.selectbox("당신의 MBTI를 선택하세요 🔍", mbti_list)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-if selected_mbti:
-    st.markdown("## 🧑‍🚀 추천 직업 리스트")
-    st.success(f"**{selected_mbti}** 타입에게 어울리는 직업은 다음과 같아요! 🚀")
-    for job in mbti_jobs[selected_mbti]:
-        st.markdown(f"- {job}")
+    if all([name, school, hobby, email]):
+        st.markdown("## ✨ 나의 프로필")
+        st.markdown(f"- **이름:** {name}")
+        st.markdown(f"- **학교:** {school}")
+        st.markdown(f"- **취미:** {hobby}")
+        st.markdown(f"- **이메일:** {email}")
+        if photo:
+            img = Image.open(photo)
+            st.image(img, width=200, caption="내 사진")
 
-    st.balloons()
-
-# 👇 하단 푸터
-st.markdown("---")
-st.markdown(
-    """
-    <div style="text-align: center; font-size: 14px; color: gray;">
-        만든이: 🧑‍💻 <b>당신의 이름</b> | 교육용 앱입니다 🎓<br>
-        Powered by <a href="https://streamlit.io" target="_blank">Streamlit</a> 🚀
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    else:
+        st.info("모든 정보를 입력하면 프로필이 보여집니다.")
