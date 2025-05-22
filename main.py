@@ -37,10 +37,10 @@ st.markdown('<div class="subtitle">자기소개를 입력해 보세요</div>', u
 with st.container():
     st.markdown('<div class="section">', unsafe_allow_html=True)
 
-    name = st.text_input("이름")
-    school = st.text_input("학교")
-    hobby = st.text_input("취미")
-    email = st.text_input("이메일")
+    name = st.text_input("Caleblee")
+    school = st.text_input("영동일고등학교")
+    hobby = st.text_input("바이브코딩")
+    email = st.text_input("windowsp@ydi.hs.kr")
     photo = st.file_uploader("사진 업로드", type=["jpg", "jpeg", "png"])
 
     st.markdown("</div>", unsafe_allow_html=True)
